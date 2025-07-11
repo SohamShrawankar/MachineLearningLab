@@ -35,4 +35,13 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
-
+while True:
+    try:
+        user_input = input("Enter house area in sq ft (or type 'exit' to quit): ")
+        if user_input.lower() == 'exit':
+            break
+        area_value = float(user_input)
+        predicted_price = model.predict([[area_value]])
+        print(f"Predicted Price for {area_value} sq ft = ₹{predicted_price[0]:.2f} Lakhs\n")
+    except ValueError:
+        print("Invalid input. Please enter a valid number.\n")
