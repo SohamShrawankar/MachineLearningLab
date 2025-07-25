@@ -70,3 +70,14 @@ print(eigenvalues)
 
 print("\nEigenvectors:")
 print(eigenvectors)
+
+
+
+LABEL ENCODING 
+
+from sklearn.preprocessing import LabelEncoder
+label_encoder = LabelEncoder()
+df['Label_Encoded'] = label_encoder.fit_transform(df['Label'])
+
+
+print(df[['Label', 'Label_Encoded']].head())
