@@ -5,6 +5,8 @@ import seaborn as sns
 # Load and prepare data
 df = pd.read_csv("house_price_prediction_PCA.csv")
 
+df.describe()
+
 # Fill missing values
 df[['Area (sq ft)', 'Price (Lakhs)']] = df[['Area (sq ft)', 'Price (Lakhs)']].fillna(df[['Area (sq ft)', 'Price (Lakhs)']].mean())
 
