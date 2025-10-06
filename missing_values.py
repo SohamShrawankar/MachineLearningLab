@@ -2,29 +2,27 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Load the dataset
+# Load dataset
 df = pd.read_csv('house_price_prediction_extended.csv')
 
-# Step 1: Check for null values
-print("Null values before filling:\n", df.isnull().sum())
+# Display null value count before filling
+print("Null values before filling:\n", df.isna().sum(), "\n")
 
-# Step 2: Fill null values with column mean
-df['Area (sq ft)'] = df['Area (sq ft)'].fillna(df['Area (sq ft)'].mean())
-df['Price (Lakhs)'] = df['Price (Lakhs)'].fillna(df['Price (Lakhs)'].mean())
+# Fill missing values with column mean (vectorized for scalability)
+df.fillna(df.mean(numeric_only=True), inplace=True)
 
-# Confirm filling
-print("\nNull values after filling:\n", df.isnull().sum())
+# Confirm nulls filled
+print("Null values after filling:\n", df.isna().sum(), "\n")
 
-# Step 3: Plot box plots
-plt.figure(figsize=(12, 5))
+# Define numeric columns for plotting
+cols = ['Area (sq ft)', 'Price (Lakhs)']
 
-plt.subplot(1, 2, 1)
-sns.boxplot(y=df['Area (sq ft)'])
-plt.title('Box Plot - Area (sq ft)')
-
-plt.subplot(1, 2, 2)
-sns.boxplot(y=df['Price (Lakhs)'])
-plt.title('Box Plot - Price (Lakhs)')
+# Plot boxplots using loop (avoids repetition)
+plt.figure(figsize=(10, 4))
+for i, col in enumerate(cols, 1):
+    plt.subplot(1, 2, i)
+    sns.boxplot(y=df[col])
+    plt.title(f'Box Plot - {col}')
 
 plt.tight_layout()
 plt.show()
